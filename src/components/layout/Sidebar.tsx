@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Modal } from '../ui/Modal'
 import type { Liceo, Device } from '../../types'
 
 interface SidebarProps {
@@ -40,12 +42,43 @@ function liceoColor(id: string, liceos: Liceo[]) {
   return LICEO_COLORS[id]
 }
 
+function computePassword(device: Device, liceos: Liceo[]): string {
+  const num = device.codigo.match(/(\d+)$/)?.[1] ?? '1'
+  const liceo = liceos.find(l => l.id === device.liceo_id)
+  if (liceo?.codigo === 'menesianos') return `menesianoculipran_${num}`
+  if (liceo?.codigo === 'carmen')     return `elcarmen_${num}`
+  return `phytoboard_${num}`
+}
+
 export function Sidebar({ liceos, selectedLiceo, devices, selectedDevice, isAdmin, onSelectLiceo, onSelectDevice, onConfigureDevice }: SidebarProps) {
+  const [pendingDevice, setPendingDevice] = useState<Device | null>(null)
+  const [pwInput, setPwInput] = useState('')
+  const [pwError, setPwError] = useState(false)
+  const [showPw, setShowPw] = useState(false)
+
   const visibleDevices = sortDevicesNumeric(
     selectedLiceo
       ? devices.filter(d => d.liceo_id === selectedLiceo.id)
       : devices,
   )
+
+  const handleConfigClick = (d: Device) => {
+    if (isAdmin) { onConfigureDevice(d); return }
+    setPendingDevice(d)
+    setPwInput('')
+    setPwError(false)
+    setShowPw(false)
+  }
+
+  const handlePasswordSubmit = () => {
+    if (!pendingDevice) return
+    if (pwInput === computePassword(pendingDevice, liceos)) {
+      setPendingDevice(null)
+      onConfigureDevice(pendingDevice)
+    } else {
+      setPwError(true)
+    }
+  }
 
   return (
     <aside className="flex flex-col bg-surface border-r border-border overflow-hidden">
@@ -114,7 +147,7 @@ export function Sidebar({ liceos, selectedLiceo, devices, selectedDevice, isAdmi
                 {(!d.activo || isAdmin) && (
                   <button
                     type="button"
-                    onClick={() => onConfigureDevice(d)}
+                    onClick={() => handleConfigClick(d)}
                     className="text-[0.6rem] font-mono px-1.5 py-0.5 rounded border border-border text-muted hover:text-ph-text hover:border-border2"
                   >
                     Config
@@ -132,6 +165,48 @@ export function Sidebar({ liceos, selectedLiceo, devices, selectedDevice, isAdmi
           ← Landing
         </Link>
       </div>
+
+      {/* Modal de clave de dispositivo */}
+      <Modal
+        open={!!pendingDevice}
+        onClose={() => setPendingDevice(null)}
+        title="Clave del grupo"
+      >
+        <div className="flex flex-col gap-3">
+          <p className="text-xs text-muted font-mono">
+            Ingresa la clave para configurar{' '}
+            <span className="text-ph-text">{pendingDevice?.nombre}</span>
+          </p>
+          <div className="relative">
+            <input
+              type={showPw ? 'text' : 'password'}
+              value={pwInput}
+              onChange={e => { setPwInput(e.target.value); setPwError(false) }}
+              onKeyDown={e => e.key === 'Enter' && handlePasswordSubmit()}
+              placeholder="••••••••••••"
+              autoFocus
+              className="w-full bg-surface2 border border-border rounded-lg px-3 py-2 pr-8 text-sm text-ph-text font-mono focus:outline-none focus:border-border2"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPw(v => !v)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-ph-text bg-transparent border-none cursor-pointer p-0 text-sm leading-none"
+            >
+              {showPw ? '🙈' : '👁'}
+            </button>
+          </div>
+          {pwError && (
+            <p className="text-xs text-red font-mono">Clave incorrecta</p>
+          )}
+          <button
+            type="button"
+            onClick={handlePasswordSubmit}
+            className="w-full py-2 rounded-lg bg-green text-bg font-mono text-sm font-bold cursor-pointer border-none hover:opacity-90 transition-opacity"
+          >
+            Continuar
+          </button>
+        </div>
+      </Modal>
     </aside>
   )
 }
