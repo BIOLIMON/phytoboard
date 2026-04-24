@@ -1,8 +1,0 @@
-name = "phytoboard"
-pages_build_output_dir = "dist"
-compatibility_date = "2026-04-24"
-
-[vars]
-# Las variables sensibles (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY)
-# se configuran en el dashboard de Cloudflare Pages → Settings → Environment variables
-# o via: wrangler pages secret put VITE_SUPABASE_URL
