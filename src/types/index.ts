@@ -37,7 +37,7 @@ export interface Reading {
 }
 
 export interface SensorMeta {
-  key: keyof Omit<Reading, 'id' | 'device_id' | 'timestamp'>
+  key: keyof Omit<Reading, 'id' | 'device_id' | 'timestamp' | 'created_at'>
   label: string
   unit: string
   min: number
