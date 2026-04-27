@@ -2,7 +2,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border py-6 px-6 text-center">
       <p className="text-muted text-xs">
-        © {new Date().getFullYear()} PhytoLink — Núcleo Milenio en Ciencia de Datos y Resiliencia Vegetal.{' '}
+        © {new Date().getFullYear()} Phytolearning — Núcleo Milenio en Ciencia de Datos y Resiliencia Vegetal.{' '}
         <a
           href="https://phytolearning.cl"
           target="_blank"

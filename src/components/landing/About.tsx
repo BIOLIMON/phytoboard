@@ -17,7 +17,8 @@ export function About() {
             Ciencia de datos para la agricultura
           </h2>
           <p className="text-muted leading-relaxed mb-4">
-            PhytoLink es un Núcleo Milenio que conecta la investigación en resiliencia vegetal con la educación técnica.
+            Phytolearning es un Núcleo Milenio que conecta la investigación en resiliencia vegetal con la educación técnica.
+            En este contexto, PhytoLink corresponde al PME (proyecto de vinculación con el medio) que se desarrolla dentro del núcleo.
             Estudiantes de 16–18 años de dos liceos agrícolas aprenden a construir y programar sus propios sistemas de monitoreo ambiental.
           </p>
           <p className="text-muted leading-relaxed">
