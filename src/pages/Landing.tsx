@@ -12,14 +12,14 @@ const LICEOS = [
     nombre:    'Liceo Menesianos',
     region:    'Región Metropolitana',
     comuna:    'Melipilla',
-    instagram: 'https://instagram.com/',
+    instagram: 'https://www.instagram.com/colegio.menesiano/',
     color:     '#4ade80',
   },
   {
     nombre:    'Liceo El Carmen',
     region:    "Región O'Higgins",
     comuna:    'San Fernando',
-    instagram: 'https://instagram.com/',
+    instagram: 'https://www.instagram.com/liceoelcarmen_sanfernando/',
     color:     '#38bdf8',
   },
 ]
