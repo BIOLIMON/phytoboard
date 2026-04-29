@@ -39,6 +39,13 @@ export function Landing() {
           <a href="#sensors"      className="text-muted hover:text-ph-text transition-colors no-underline hidden md:block">Sensores</a>
           <a href="#instituciones" className="text-muted hover:text-ph-text transition-colors no-underline hidden md:block">Instituciones</a>
           <Link
+            to="/encuesta"
+            className="px-4 py-1.5 rounded-lg font-medium text-bg no-underline text-sm transition-all hover:opacity-90"
+            style={{ background: '#f59e0b' }}
+          >
+            Encuesta
+          </Link>
+          <Link
             to="/dashboard"
             className="px-4 py-1.5 rounded-lg font-medium text-bg no-underline text-sm transition-all hover:opacity-90"
             style={{ background: 'linear-gradient(135deg, #4ade80, #38bdf8)' }}
@@ -70,6 +77,26 @@ export function Landing() {
 
         <SensorGrid />
         <Institutions />
+
+        {/* CTA - Encuesta */}
+        <section className="py-16 px-6">
+          <div className="max-w-xl mx-auto text-center bg-surface border border-border rounded-3xl p-10">
+            <h2 className="text-xl font-bold text-ph-text mb-3">Participa en nuestra encuesta</h2>
+            <p className="text-muted text-sm mb-6">
+              Ayúdanos a mejorar el monitoreo ambiental compartiendo tu perspectiva sobre el uso del sistema.
+            </p>
+            <Link
+              to="/encuesta"
+              className="px-8 py-3 rounded-xl font-bold text-sm text-bg no-underline inline-block transition-all hover:opacity-90"
+              style={{
+                background: '#f59e0b',
+                boxShadow: '0 0 30px #f59e0b40',
+              }}
+            >
+              Responder Encuesta →
+            </Link>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="py-16 px-6">

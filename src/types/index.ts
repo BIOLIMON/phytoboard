@@ -57,3 +57,19 @@ export const SENSORS: SensorMeta[] = [
   { key: 'fosforo',         label: 'Fósforo',          unit: 'mg/kg',min: 0,   max: 100,  optimal: [20, 60],   color: '#fde047', description: 'Nutriente para energía y raíces' },
   { key: 'potasio',         label: 'Potasio',          unit: 'mg/kg',min: 0,   max: 400,  optimal: [100, 250], color: '#fb923c', description: 'Nutriente para resistencia y calidad' },
 ]
+
+export interface Student {
+  id: string
+  liceo_id: string
+  nombre: string
+  created_at: string
+}
+
+export interface Survey {
+  id: string
+  student_id: string
+  liceo_id: string
+  completed: boolean
+  completed_at?: string
+  created_at: string
+}
